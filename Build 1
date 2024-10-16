@@ -1,0 +1,37 @@
+import random
+import pandas as pd
+import numpy as np
+
+def kentucky_lottery_predictor(seed_value, drawing_data):
+    # Set seed value for reproducibility
+    random.seed(seed_value)
+    
+    # Define lottery drawing parameters
+    num_balls = 69  # Powerball
+    num_picks = 5  # Standard pick-5 format
+    
+    # Generate predicted numbers
+    predicted_numbers = random.sample(range(1, num_balls + 1), num_picks)
+    
+    # Sort predicted numbers for readability
+    predicted_numbers.sort()
+    
+    # Print predicted numbers
+    print("Predicted Numbers:", predicted_numbers)
+    
+    # Compare predicted numbers with actual drawing results
+    actual_numbers = drawing_data['Winning Numbers']
+    matches = sum(1 for num in predicted_numbers if num in actual_numbers)
+    
+    # Print result analysis
+    print("Matches:", matches)
+    print("Accuracy:", matches / num_picks * 100, "%")
+
+# Load historical Kentucky lottery drawing data
+drawing_data = pd.read_csv('kentucky_lottery_drawings.csv')
+
+# Set seed value (customizable)
+seed_value = 12345
+
+# Run the predictor algorithm
+kentucky_lottery_predictor(seed_value, drawing_data)
